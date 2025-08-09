@@ -26,12 +26,12 @@ const Footer = () => {
           <div>
             <p className='text-xl font-medium mb-5 text-gray-800'>GUIDE</p>
             <ul className='flex flex-col gap-3 text-gray-600'>
-              <li><a href="/shopping-guide" className="hover:text-gray-800 transition-colors">Shopping guide</a></li>
-              <li><a href="/overseas-shipping" className="hover:text-gray-800 transition-colors">About overseas shipping [For Overseas Customer]</a></li>
-              <li><a href="/commercial-transactions" className="hover:text-gray-800 transition-colors">Notation based on the Act on Specified Commercial Transactions</a></li>
-              <li><a href="/privacy-policy" className="hover:text-gray-800 transition-colors">Privacy policy</a></li>
-              <li><a href="/about-points" className="hover:text-gray-800 transition-colors">About points</a></li>
-              <li><a href="/inquiry" className="hover:text-gray-800 transition-colors">Inquiry</a></li>
+              <li><a href="/about" className="hover:text-gray-800 transition-colors">Shopping guide</a></li>
+              <li><a href="/about" className="hover:text-gray-800 transition-colors">About overseas shipping [For Overseas Customer]</a></li>
+              <li><a href="/about" className="hover:text-gray-800 transition-colors">Notation based on the Act on Specified Commercial Transactions</a></li>
+              <li><a href="/about" className="hover:text-gray-800 transition-colors">Privacy policy</a></li>
+              <li><a href="/about" className="hover:text-gray-800 transition-colors">About points</a></li>
+              <li><a href="/about" className="hover:text-gray-800 transition-colors">Inquiry</a></li>
             </ul>
           </div>
 

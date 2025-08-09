@@ -1,5 +1,6 @@
 import React from 'react';
 import { assets } from '../assets/assets';
+import Title from './Title'
 
 const HappyCustomers = () => {
   const images = [
@@ -11,7 +12,9 @@ const HappyCustomers = () => {
 
   return (
     <div className="py-10 px-5">
-      <h2 className="text-center text-3xl font-bold mb-5">#Happy Customers</h2>
+       <div className='text-center py-7'>
+        <Title text1={'HAPPY'} text2={'CUSTOMERS'} />
+      </div>
       <p className="text-center text-gray-500 mb-10">Our customers love us. Here's a glimpse of our satisfied customers. 600+ Happy Customers</p>
       <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4">
         {images.map((image, index) => (

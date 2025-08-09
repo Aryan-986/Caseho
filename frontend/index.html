@@ -1,14 +1,81 @@
 <!doctype html>
-<html lang="en" class="scroll-smooth">
+<html lang="en-NP" class="scroll-smooth">
   <head>
+    <!-- Basic SEO -->
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/frontend/src/assets/logo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CaseHo</title>
+    <title>RealProtech Nepal | Premium iPhone Accessories & Giveaways</title>
+    <meta name="description" content="RealProtech Nepal offers premium iPhone cases, chargers, and accessories — plus exciting giveaways. Shop quality, style, and unbeatable deals in Nepal." />
+    <meta name="keywords" content="iPhone accessories Nepal, iPhone cases Nepal, premium phone covers, RealProtech Nepal, phone accessories Nepal, giveaways Nepal" />
+    <meta name="author" content="RealProtech" />
+    <meta name="theme-color" content="#ffffff" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/frontend/src/assets/logo.png" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://realprotech.com/" />
+    <meta property="og:title" content="RealProtech Nepal | Premium iPhone Accessories & Giveaways" />
+    <meta property="og:description" content="Shop premium iPhone accessories and join exclusive giveaways at RealProtech Nepal." />
+    <meta property="og:image" content="https://realprotech.com/assets/og-banner.jpg" />
+
+    <!-- Twitter Card -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://realprotech.com/" />
+    <meta property="twitter:title" content="RealProtech Nepal | Premium iPhone Accessories & Giveaways" />
+    <meta property="twitter:description" content="Shop premium iPhone accessories and join exclusive giveaways at RealProtech Nepal." />
+    <meta property="twitter:image" content="https://realprotech.com/assets/og-banner.jpg" />
+
+    <!-- Local Business Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "RealProtech Nepal",
+      "image": "https://realprotech.com/assets/logo.png",
+      "url": "https://realprotech.com",
+      "telephone": "+977-98XXXXXXXX",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Putalisadak, Kathmandu",
+        "addressLocality": "Kathmandu",
+        "addressRegion": "Bagmati",
+        "postalCode": "44600",
+        "addressCountry": "NP"
+      },
+      "sameAs": [
+        "https://www.instagram.com/realprotech2/",
+        "https://www.tiktok.com/@realprotech"
+      ]
+    }
+    </script>
+
+    <!-- Product Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org/",
+      "@type": "Product",
+      "name": "Premium iPhone Case",
+      "image": "https://realprotech.com/assets/products/iphone-case.jpg",
+      "description": "Stylish, durable, and protective iPhone case from RealProtech Nepal.",
+      "brand": {
+        "@type": "Brand",
+        "name": "RealProtech"
+      },
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "NPR",
+        "price": "2999",
+        "availability": "https://schema.org/InStock",
+        "url": "https://realprotech.com/collection"
+      }
+    }
+    </script>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
-    <script src="https://checkout.razorpay.com/v1/checkout.js"> </script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   </body>
 </html>

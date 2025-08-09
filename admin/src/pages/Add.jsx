@@ -97,31 +97,6 @@ const Add = ({token}) => {
 
         <div className='flex flex-col sm:flex-row gap-2 w-full sm:gap-8'>
 
-            <div>
-              <p className='mb-2'>Product category</p>
-              <select onChange={(e) => setCategory(e.target.value)} className='w-full px-3 py-2'>
-                  <option value="Plus">I Phone Plus Series</option>
-                  <option value="Pro">I Phone Pro Series</option>
-                  <option value="Pro Max">I Phone Pro Max Series</option>
-                  <option value="Others">Other Series</option>
-              </select>
-            </div>
-
-            <div>
-              <p className='mb-2'>Sub category</p>
-              <select onChange={(e) => setSubCategory(e.target.value)} className='w-full px-3 py-2'>
-              <option value="I Phone 7">I Phone 7</option>
-              <option value="I Phone 8">I Phone 8</option>
-              <option value="I Phone XR/XS">I Phone XR/XS</option>
-                  <option value="I Phone 11">I Phone 11</option>
-                  <option value="I Phone 12">I Phone 12</option>
-                  <option value="I Phone 13">I Phone 13</option>
-                  <option value="I Phone 14">I Phone 14</option>
-                  <option value="I Phone 15">I Phone 15</option>
-                  <option value="I Phone 16">I Phone 16</option>
-                  <option value="Other">Other</option>
-              </select>
-            </div>
 
             <div>
               <p className='mb-2'>Product Price</p>
@@ -129,8 +104,6 @@ const Add = ({token}) => {
             </div>
 
         </div>
-
-        
 
         <div className='flex gap-2 mt-2'>
           <input onChange={() => setBestseller(prev => !prev)} checked={bestseller} type="checkbox" id='bestseller' />

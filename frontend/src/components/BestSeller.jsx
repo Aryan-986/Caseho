@@ -18,7 +18,6 @@ const BestSeller = () => {
       <div className='text-center text-3xl py-8'>
       <h2 className="text-center text-4xl font-bold mb-5">#Best Selling Products</h2>
         <p className='w-3/4 m-auto text-xs sm:text-sm md:text-base text-gray-600'>
-        Our best-selling iPhone case combines sleek design with superior protection. Made from durable, shock-absorbent materials, it shields your phone from drops and scratches while maintaining a slim, stylish look. With a precise fit and easy access to buttons and ports, it's the perfect blend of style and functionality.
         </p>
       </div>
 

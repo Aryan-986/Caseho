@@ -21,6 +21,8 @@ import layout2 from './layout2.jpg'
 import layout3 from './layout3.jpg'
 import layout4 from './layout4.jpg'
 import layout5 from './layout5.jpg'
+import footerimg1 from './footerimg1.jpg'
+import footerimg2 from './footerimg2.jpg'
 import c1 from './1.png'
 import c2 from './2.png'
 import c3 from './3.png'
@@ -85,6 +87,9 @@ export const assets = {
     c13,
     c14,
     c15,
-    c16  
+    c16,
+    footerimg1,
+    footerimg2,
+
 }
 

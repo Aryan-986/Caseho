@@ -6,55 +6,47 @@ import RelatedProducts from '../components/RelatedProducts';
 const Product = () => {
   const { productId } = useParams();
   const { products, currency, addToCart } = useContext(ShopContext);
-  const [productData, setProductData] = useState(false);
+  const [productData, setProductData] = useState(null);
   const [image, setImage] = useState('');
   const [selectedModel, setSelectedModel] = useState('');
 
-  const fetchProductData = async () => {
-    products.map((item) => {
-      if (item._id === productId) {
-        setProductData(item);
-        setImage(item.image[0]);
-        return null;
-      }
-    });
-  };
-
   useEffect(() => {
-    fetchProductData();
+    const foundProduct = products.find(item => item._id === productId);
+    if (foundProduct) {
+      setProductData(foundProduct);
+      setImage(foundProduct.image[0]);
+    }
   }, [productId, products]);
-
-  const iPhoneModels = [
-    'iPhone 6', 'iPhone 6 Plus', 'iPhone 6s', 'iPhone 6s Plus',
-    'iPhone 7', 'iPhone 7 Plus', 'iPhone 8', 'iPhone 8 Plus',
-    'iPhone X', 'iPhone XR', 'iPhone XS', 'iPhone XS Max',
-    'iPhone 11', 'iPhone 11 Pro', 'iPhone 11 Pro Max',
-    'iPhone 12', 'iPhone 12 Pro', 'iPhone 12 Pro Max', 
-    'iPhone 13', 'iPhone 13 Pro', 'iPhone 13 Pro Max', 
-    'iPhone 14', 'iPhone 14 Pro', 'iPhone 14 Pro Max', 
-    'iPhone 15', 'iPhone 15 Pro', 'iPhone 15 Pro Max',
-    'iPhone 16', 'iPhone 16 Pro', 'iPhone 16 Pro Max',
-  ];
 
   return productData ? (
     <div className="border-t-2 pt-10 transition-opacity ease-in duration-500 opacity-100">
-      {/* Product Data */}
       <div className="flex gap-12 sm:gap-12 flex-col sm:flex-row">
         {/* Product Images */}
         <div className="flex-1 flex flex-col-reverse gap-3 sm:flex-row">
-          <div className="flex sm:flex-col overflow-x-auto sm:overflow-y-scroll justify-between sm:justify-normal sm:w-[18.7%] w-full">
+          {/* Thumbnails */}
+          <div className="flex sm:flex-col overflow-x-auto sm:overflow-y-scroll justify-between sm:justify-normal sm:w-[18.7%] w-full gap-2">
             {productData.image.map((item, index) => (
-              <img
-                onClick={() => setImage(item)}
-                src={item}
+              <div
                 key={index}
-                className="w-[24%] sm:w-full sm:mb-3 flex-shrink-0 cursor-pointer"
-                alt=""
-              />
+                onClick={() => setImage(item)}
+                className="aspect-square w-[24%] sm:w-full sm:mb-3 cursor-pointer relative rounded-md overflow-hidden border border-gray-300"
+              >
+                <img
+                  src={item}
+                  alt=""
+                  className="object-cover w-full h-full transition-transform duration-300 ease-in-out hover:scale-105"
+                />
+              </div>
             ))}
           </div>
-          <div className="w-full sm:w-[80%]">
-            <img className="w-full h-auto" src={image} alt="" />
+
+          {/* Main Image */}
+          <div className="w-full sm:w-[80%] aspect-square relative rounded-md overflow-hidden border border-gray-300">
+            <img
+              className="object-cover w-full h-full"
+              src={image}
+              alt=""
+            />
           </div>
         </div>
 
@@ -64,23 +56,25 @@ const Product = () => {
           <p className="mt-5 text-3xl font-medium">{currency}{productData.price}</p>
           <p className="mt-5 text-gray-500 md:w-4/5">{productData.description}</p>
 
-          {/* Dropdown for Model Selection */}
-          <div className="my-8">
-            <label htmlFor="model-select" className="block mb-2 font-semibold">Select Model</label>
-            <select
-              id="model-select"
-              value={selectedModel}
-              onChange={(e) => setSelectedModel(e.target.value)}
-              className="border border-purple-500 px-4 py-2 rounded-md w-30"
-            >
-              <option value="" disabled>Select iPhone Model...</option>
-              {iPhoneModels.map((model, index) => (
-                <option key={index} value={model}>{model}</option>
-              ))}
-            </select>
-          </div>
+          {/* Model Selection */}
+          {productData.models && productData.models.length > 0 && (
+            <div className="my-8">
+              <label htmlFor="model-select" className="block mb-2 font-semibold">Select Model</label>
+              <select
+                id="model-select"
+                value={selectedModel}
+                onChange={(e) => setSelectedModel(e.target.value)}
+                className="border border-purple-500 px-4 py-2 rounded-md w-30"
+              >
+                <option value="" disabled>Select Model...</option>
+                {productData.models.map((model, index) => (
+                  <option key={index} value={model}>{model}</option>
+                ))}
+              </select>
+            </div>
+          )}
 
-          {/* Add to Cart Button */}
+          {/* Add to Cart */}
           <button
             onClick={() => addToCart(productData._id, selectedModel)}
             disabled={!selectedModel}
@@ -89,7 +83,7 @@ const Product = () => {
             ADD TO CART
           </button>
 
-          {/* Additional Info */}
+          {/* Extra Info */}
           <hr className="mt-8 sm:w-4/5" />
           <div className="text-sm text-gray-500 mt-5 flex flex-col gap-1">
             <p>100% Original product.</p>

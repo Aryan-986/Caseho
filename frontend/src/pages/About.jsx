@@ -17,7 +17,7 @@ const AboutUs = () => {
   const faqs = [
     {
       question: "📦 What models of iPhone do your cases support?",
-      answer: "We offer cases for iPhone and newer — including all Pro, Plus, and Max models. Our collection covers iPhone 11, 12, 13, 14, 15 and more upcomming series with precise cutouts and perfect fit guaranteed."
+      answer: "We offer cases for iPhone and newer — including all Pro, Plus, and Max models. Our collection covers iPhone 11, 12, 13, 14, 15,16 and more upcomming series and also accessories of other brand phones like airbuds, powerbank and many more accessories with precise cutouts and perfect fit guaranteed."
     },
     {
       question: "🧲 Are your cases MagSafe compatible?",
@@ -137,10 +137,10 @@ const AboutUs = () => {
                     <h4 className="font-semibold text-gray-800 mb-2">Ordering Process:</h4>
                     <ol className="list-decimal list-inside space-y-1">
                       <li>Browse our collection and add items to cart</li>
-                      <li>Review your order and apply any discount codes</li>
+                      <li>Review your order and make canges if anything you needed.</li>
                       <li>Choose delivery method and payment option</li>
-                      <li>Confirm order and receive confirmation email</li>
-                      <li>Track your package with provided tracking number</li>
+                      <li>Confirm order and see your order placement in orders page for confirmation</li>
+                      <li>Track your package in orser page</li>
                     </ol>
                   </div>
                 </div>
@@ -173,7 +173,7 @@ const AboutUs = () => {
                     <ul className="space-y-2">
                       <li><strong>India:</strong> 7-10 business days</li>
                       <li><strong>Other Countries:</strong> 10-14 business days</li>
-                      <li><strong>Shipping Cost:</strong> Calculated at checkout or contact on whatsapp or insta berfore confirmation</li>
+                      <li><strong>Shipping Cost:</strong> Calculated at checkout or contact on whatsapp or instagram berfore confirmation</li>
                       <li><strong>Customs:</strong> Customer responsible for duties</li>
                     </ul>
                   </div>

@@ -3,7 +3,7 @@ import { Instagram, MessageCircle } from 'lucide-react';
 import { assets } from '../assets/assets';
 
 const Footer = () => {
-  const businessWhatsappNumber = '9828740457';
+  const businessWhatsappNumber = '9749407400';
   const businessWhatsappLink = `https://wa.me/${businessWhatsappNumber}`;
   const devWhatsappNumber = '9867378511';
   const devWhatsappLink = `https://wa.me/${devWhatsappNumber}`;
@@ -15,9 +15,9 @@ const Footer = () => {
           
           {/* Company Info */}
           <div>
-            <img src={assets.logo} className='mb-5 w-32' alt="protech Logo" />
+            <img src={assets.logo} className='mb-5 w-32' alt="Real Protech Logo" />
             <p className='w-full md:w-2/3 text-gray-600'>
-              protech offers premium iPhone cases designed to provide ultimate protection with unmatched style. Explore our exclusive collection and
+              Real Protech offers premium iPhone cases designed to provide ultimate protection with unmatched style. Explore our exclusive collection and
               find the perfect blend of aesthetics and durability for your device.
             </p>
           </div>
@@ -28,10 +28,7 @@ const Footer = () => {
             <ul className='flex flex-col gap-3 text-gray-600'>
               <li><a href="/about" className="hover:text-gray-800 transition-colors">Shopping guide</a></li>
               <li><a href="/about" className="hover:text-gray-800 transition-colors">About overseas shipping [For Overseas Customer]</a></li>
-              <li><a href="/about" className="hover:text-gray-800 transition-colors">Notation based on the Act on Specified Commercial Transactions</a></li>
               <li><a href="/about" className="hover:text-gray-800 transition-colors">Privacy policy</a></li>
-              <li><a href="/about" className="hover:text-gray-800 transition-colors">About points</a></li>
-              <li><a href="/about" className="hover:text-gray-800 transition-colors">Inquiry</a></li>
             </ul>
           </div>
 
@@ -41,7 +38,7 @@ const Footer = () => {
             <div className='flex gap-4'>
               {/* Instagram */}
               <a 
-                href="https://www.instagram.com/realprotech2/" 
+                href="https://www.instagram.com/realReal Protech2/" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="w-10 h-10 flex items-center justify-center bg-gray-100 hover:bg-pink-100 rounded-full transition-colors group"
@@ -51,7 +48,7 @@ const Footer = () => {
 
               {/* TikTok */}
               <a 
-                href="https://www.tiktok.com/@realprotech" 
+                href="https://www.tiktok.com/@realReal Protech" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="w-10 h-10 flex items-center justify-center bg-gray-100 hover:bg-black rounded-full transition-colors group"
@@ -111,7 +108,7 @@ const Footer = () => {
         {/* Copyright Info */}
         <div className="border-t border-gray-200 py-5">
           <p className='text-sm text-center text-gray-500'>
-            Copyright © 2024 protech. All Rights Reserved.
+            Copyright © 2024 Real Protech. All Rights Reserved.
           </p>
           <p className='py-2 text-xs text-center text-gray-500'>
             Dev by <a href={devWhatsappLink} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">Aryan K</a>

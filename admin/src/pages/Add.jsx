@@ -9,6 +9,7 @@ const Add = ({ token }) => {
   const [name, setName] = useState("")
   const [description, setDescription] = useState("")
   const [price, setPrice] = useState("")
+  const [oldPrice, setOldPrice] = useState("")
   const [bestseller, setBestseller] = useState(false)
   const [sizes, setSizes] = useState([])
   const [models, setModels] = useState([])
@@ -46,6 +47,7 @@ const Add = ({ token }) => {
       formData.append("name", name)
       formData.append("description", description)
       formData.append("price", price)
+      formData.append("oldPrice", oldPrice)
       formData.append("bestseller", bestseller)
       formData.append("sizes", JSON.stringify(sizes))
       formData.append("models", JSON.stringify(models))
@@ -131,13 +133,25 @@ const Add = ({ token }) => {
 
       {/* Price */}
       <div>
-        <p className='mb-2'>Product Price</p>
+        <p className='mb-2'>New Product Price</p>
         <input
           value={price}
           onChange={(e) => setPrice(e.target.value)}
           className='w-full px-3 py-2 sm:w-[120px]'
           type='number'
-          placeholder='25'
+          placeholder='1000'
+        />
+      </div>
+      
+      {/*Old product price*/}
+      <div>
+        <p className='mb-2'>Old ProductPrice</p>
+        <input
+         value={oldPrice}
+         onChange={(e) => setOldPrice(e.target.value)}
+         className='wfull px-3 py-2 sm:w-[120px]'
+         type = 'number'
+         placeholder='1500'
         />
       </div>
 

@@ -1,25 +1,25 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { ShopContext } from '../context/ShopContext'
-import Title from './Title'
-import ProductItem from './ProductItem'
-import { Link } from 'react-router-dom'
+import React, { useContext, useEffect, useState } from 'react';
+import { ShopContext } from '../context/ShopContext';
+import Title from './Title';
+import ProductItem from './ProductItem';
+import { Link } from 'react-router-dom';
 
 const LatestCollection = () => {
-  const { products } = useContext(ShopContext)
-  const [latestProducts, setLatestProducts] = useState([])
-  const [sortOrder, setSortOrder] = useState("default")
+  const { products } = useContext(ShopContext);
+  const [latestProducts, setLatestProducts] = useState([]);
+  const [sortOrder, setSortOrder] = useState("default");
 
   useEffect(() => {
-    let sortedProducts = [...products.slice(0, 10)]
+    let sortedProducts = [...products.slice(0, 10)];
 
     if (sortOrder === "lowToHigh") {
-      sortedProducts.sort((a, b) => a.price - b.price)
+      sortedProducts.sort((a, b) => a.price - b.price);
     } else if (sortOrder === "highToLow") {
-      sortedProducts.sort((a, b) => b.price - a.price)
+      sortedProducts.sort((a, b) => b.price - a.price);
     }
 
-    setLatestProducts(sortedProducts)
-  }, [products, sortOrder])
+    setLatestProducts(sortedProducts);
+  }, [products, sortOrder]);
 
   return (
     <div className='my-2'>
@@ -50,22 +50,22 @@ const LatestCollection = () => {
             image={item.image}
             name={item.name}
             price={item.price}
+            oldPrice={item.oldPrice}
           />
         ))}
       </div>
 
       {/* Show More Button */}
       <div className="text-center mt-8">
-      <Link
-  to="/collection"
-  className="inline-block px-2 py-1 border border-black text-black font-semibold rounded hover:bg-gray-700 hover:text-white transition"
->
-  Show More
-</Link>
-
+        <Link
+          to="/collection"
+          className="inline-block px-2 py-1 border border-black text-black font-semibold rounded hover:bg-gray-700 hover:text-white transition"
+        >
+          Show More
+        </Link>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default LatestCollection
+export default LatestCollection;

@@ -78,7 +78,7 @@ const AboutUs = () => {
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-4xl font-bold text-gray-800 mb-8">Our Story</h2>
           <p className="text-lg text-gray-600 leading-relaxed mb-8">
-            Founded with a passion for protecting what matters most to you, Realprotech began as a dream to bring 
+            Founded with a passion for protecting what matters most to you, RealReal Protech began as a dream to bring 
             premium iPhone protection to Nepal. We understand that your iPhone isn't just a device - it's your 
             connection to the world, your memories, and your productivity.
           </p>
@@ -92,7 +92,7 @@ const AboutUs = () => {
       {/* Features Grid */}
       <div className="py-16 bg-white">
         <div className="container mx-auto px-6">
-          <h2 className="text-4xl font-bold text-center text-gray-800 mb-12">Why Choose Realprotech?</h2>
+          <h2 className="text-4xl font-bold text-center text-gray-800 mb-12">Why Choose RealReal Protech?</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature, index) => (
               <div key={index} className="text-center p-6 rounded-xl bg-gradient-to-br from-white to-gray-50 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">

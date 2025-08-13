@@ -40,16 +40,7 @@ const MoreAboutUs = () => {
       </div>
 
       {/* Bottom big image with heading - always visible */}
-      <div>
-        <h2 className="text-center text-3xl font-bold mb-7">
-          #📱 "Style, Protection, and Personality—All in One Case!" ✨
-        </h2>
-        <img
-          src={assets.layout1}
-          alt="Image 1"
-          className="w-full h-[450px] object-cover rounded-lg shadow-md border-2 border-gray-300 hover:scale-105 transition duration-300 ease-in-out"
-        />
-      </div>
+      
     </div>
   );
 };

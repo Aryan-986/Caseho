@@ -18,6 +18,12 @@ const Product = () => {
     }
   }, [productId, products]);
 
+  // Calculate discount percentage
+  const discount =
+    productData?.oldPrice && productData.oldPrice > productData.price
+      ? Math.round(((productData.oldPrice - productData.price) / productData.oldPrice) * 100)
+      : null;
+
   return productData ? (
     <div className="border-t-2 pt-10 transition-opacity ease-in duration-500 opacity-100">
       <div className="flex gap-12 sm:gap-12 flex-col sm:flex-row">
@@ -53,7 +59,24 @@ const Product = () => {
         {/* Product Info */}
         <div className="flex-1">
           <h1 className="font-medium text-2xl mt-2">{productData.name}</h1>
-          <p className="mt-5 text-3xl font-medium">{currency}{productData.price}</p>
+
+          {/* Price Section */}
+          <div className="mt-5 flex items-center gap-3">
+            {productData.oldPrice && (
+              <span className="text-gray-500 line-through text-lg">
+                {currency}{productData.oldPrice}
+              </span>
+            )}
+            <span className="text-3xl font-medium text-red-600">
+              {currency}{productData.price}
+            </span>
+            {discount && (
+              <span className="text-green-600 text-lg font-semibold">
+                {discount}% OFF
+              </span>
+            )}
+          </div>
+
           <p className="mt-5 text-gray-500 md:w-4/5">{productData.description}</p>
 
           {/* Model Selection */}

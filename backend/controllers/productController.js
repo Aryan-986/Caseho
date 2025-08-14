@@ -14,6 +14,7 @@ const addProduct = async (req, res) => {
       sizes,
       bestseller,
       models,
+      colors,
     } = req.body;
 
     // Collect images from multer upload
@@ -43,6 +44,7 @@ const addProduct = async (req, res) => {
       bestseller: bestseller === "true",
       sizes: sizes ? JSON.parse(sizes) : [],
       models: models ? JSON.parse(models) : [],
+      colors: colors ? JSON.parse(colors) : [],
       image: imagesUrl,
       date: Date.now(),
     };
@@ -71,6 +73,7 @@ const updateProduct = async (req, res) => {
       sizes,
       bestseller,
       models,
+      colors,
     } = req.body;
 
     const product = await productModel.findById(productId);
@@ -87,6 +90,7 @@ const updateProduct = async (req, res) => {
     if (subCategory) product.subCategory = subCategory;
     if (sizes) product.sizes = JSON.parse(sizes);
     if (models) product.models = JSON.parse(models);
+    if(colors) product.colors = JSON.parse(colors);
     if (typeof bestseller !== "undefined") {
       product.bestseller = bestseller === "true";
     }

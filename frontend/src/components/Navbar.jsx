@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { assets } from '../assets/assets';
 import { Link, NavLink } from 'react-router-dom';
 import { ShopContext } from '../context/ShopContext';
+import WavingNepaliFlag from './WavingNepaliFlag'; // Add this import
 
 const Navbar = () => {
   const [visible, setVisible] = useState(false);
@@ -17,7 +18,13 @@ const Navbar = () => {
   return (
     <>
       <div className='flex items-center justify-between py-5 font-medium relative z-50 bg-white'>
-        <Link to='/'><img src={assets.logo} className='w-36' alt="" /></Link>
+        {/* Updated Logo Section with Flag */}
+        <div className='flex items-center gap-3'>
+          <Link to='/'>
+            <img src={assets.logo} className='w-36' alt="Protech Logo" />
+          </Link>
+          <WavingNepaliFlag className="h-9" />
+        </div>
 
         {/* Desktop Navigation */}
         <ul className='hidden sm:flex gap-5 text-sm text-gray-700'>

@@ -9,12 +9,16 @@ const Product = () => {
   const [productData, setProductData] = useState(null);
   const [image, setImage] = useState('');
   const [selectedModel, setSelectedModel] = useState('');
+  const [selectedColor, setSelectedColor] = useState('');
 
   useEffect(() => {
     const foundProduct = products.find(item => item._id === productId);
     if (foundProduct) {
       setProductData(foundProduct);
       setImage(foundProduct.image[0]);
+      if (foundProduct.colors && foundProduct.colors.length > 0) {
+        setSelectedColor(foundProduct.colors[0]); // default to first color
+      }
     }
   }, [productId, products]);
 
@@ -27,9 +31,9 @@ const Product = () => {
   return productData ? (
     <div className="border-t-2 pt-10 transition-opacity ease-in duration-500 opacity-100">
       <div className="flex gap-12 sm:gap-12 flex-col sm:flex-row">
+
         {/* Product Images */}
         <div className="flex-1 flex flex-col-reverse gap-3 sm:flex-row">
-          {/* Thumbnails */}
           <div className="flex sm:flex-col overflow-x-auto sm:overflow-y-scroll justify-between sm:justify-normal sm:w-[18.7%] w-full gap-2">
             {productData.image.map((item, index) => (
               <div
@@ -81,7 +85,7 @@ const Product = () => {
 
           {/* Model Selection */}
           {productData.models && productData.models.length > 0 && (
-            <div className="my-8">
+            <div className="my-4">
               <label htmlFor="model-select" className="block mb-2 font-semibold">Select Model</label>
               <select
                 id="model-select"
@@ -97,14 +101,33 @@ const Product = () => {
             </div>
           )}
 
+          {/* Color Selection */}
+        {/*  {productData.colors && productData.colors.length > 0 && (
+            <div className="my-4">
+              <p className="block mb-2 font-semibold">Select Color</p>
+              <div className="flex gap-2 flex-wrap">
+                {productData.colors.map((color, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => setSelectedColor(color)}
+                    className={`px-4 py-2 rounded-md border ${selectedColor === color ? 'bg-black text-white' : 'bg-gray-100'}`}
+                  >
+                    {color}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )} */}
+
           {/* Add to Cart */}
-          <button
-            onClick={() => addToCart(productData._id, selectedModel)}
-            disabled={!selectedModel}
-            className={`bg-black text-white px-8 py-3 text-sm ${!selectedModel ? 'opacity-50 cursor-not-allowed' : 'active:bg-gray-700'}`}
-          >
-            ADD TO CART
-          </button>
+              <button
+           onClick={() => addToCart(productData._id, selectedModel, selectedColor)}
+           disabled={!selectedModel} // only model is required
+          className={`bg-black text-white px-8 py-3 text-sm mt-4 ${!selectedModel ? 'opacity-50 cursor-not-allowed' : 'active:bg-gray-700'}`}
+            >
+           ADD TO CART
+        </button>
 
           {/* Extra Info */}
           <hr className="mt-8 sm:w-4/5" />

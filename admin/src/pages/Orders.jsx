@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { backendUrl, currency } from '../App'
 import { toast } from 'react-toastify'
-import { assets } from '../assets/assets'
+import { backendUrl, currency } from '../App'
 
 const Orders = ({ token }) => {
   const [orders, setOrders] = useState([])
@@ -11,7 +10,11 @@ const Orders = ({ token }) => {
     if (!token) return;
 
     try {
-      const response = await axios.post(backendUrl + '/api/order/list', {}, { headers: { token } })
+      const response = await axios.post(
+        backendUrl + '/api/order/list',
+        {},
+        { headers: { token } }
+      )
       if (response.data.success) {
         setOrders(response.data.orders.reverse())
       } else {
@@ -56,49 +59,67 @@ const Orders = ({ token }) => {
   }
 
   useEffect(() => {
-    fetchAllOrders();
+    fetchAllOrders()
   }, [token])
 
   return (
-    <div>
-      <h3>Order Page</h3>
-      <div>
-        {orders.map((order, index) => (
+    <div className="p-5">
+      <h3 className="text-2xl font-semibold mb-4">Admin Orders</h3>
+      <div className="flex flex-col gap-4">
+        {orders.map((order, idx) => (
           <div
-            key={index}
-            className='grid grid-cols-1 sm:grid-cols-[0.5fr_2fr_1fr] lg:grid-cols-[0.5fr_2fr_1fr_1fr_1fr] gap-3 items-start border-2 border-gray-200 p-5 md:p-8 my-3 md:my-4 text-xs sm:text-sm text-gray-700'
+            key={idx}
+            className="grid grid-cols-1 sm:grid-cols-[0.5fr_2fr_1fr_1fr_1fr] gap-3 items-start border p-4 rounded-md"
           >
-            <img className='w-12' src={assets.parcel_icon} alt="" />
-            <div>
-              <div>
-                {order.items.map((item, idx) => (
-                  <p className='py-0.5' key={idx}>
-                    {item.name} x {item.quantity} <span>{item.size}</span>
-                    {idx < order.items.length - 1 && ','}
-                  </p>
-                ))}
-              </div>
-              <p className='mt-3 mb-2 font-medium'>
-                {order.address.firstName + " " + order.address.lastName}
+            {/* Placeholder icon or first product image */}
+            <img
+              className="w-12 h-12 object-cover rounded-md"
+              src={order.items[0]?.image[0] || 'https://via.placeholder.com/50'}
+              alt={order.items[0]?.name || 'Product'}
+            />
+
+            {/* Product details */}
+            <div className="flex flex-col gap-1">
+              {order.items.map((item, index) => (
+                <div key={index} className="flex items-center gap-2 text-sm">
+                  <img
+                    src={item.image[0]}
+                    alt={item.name}
+                    className="w-10 h-10 object-cover rounded-sm"
+                  />
+                  <span>
+                    {item.name} x {item.quantity} 
+                    {item.color && <span> | Color: {item.color}</span>}
+                  </span>
+                </div>
+              ))}
+
+              <p className="mt-2 font-medium">
+                {order.address.firstName} {order.address.lastName}
               </p>
-              <div>
-                <p>{order.address.street + ","}</p>
-                <p>{order.address.city + ", " + order.address.state + ", " + order.address.country + ", " + order.address.zipcode}</p>
-              </div>
-              <p>{order.address.phone}</p>
+              <p className="text-gray-500 text-sm">
+                {order.address.street}, {order.address.city}, {order.address.state}, {order.address.country}, {order.address.zipcode}
+              </p>
+              <p className="text-gray-500 text-sm">{order.address.phone}</p>
             </div>
-            <div>
-              <p className='text-sm sm:text-[15px]'>Items : {order.items.length}</p>
-              <p className='mt-3'>Method : {order.paymentMethod}</p>
-              <p>Payment : {order.payment ? 'Done' : 'Pending'}</p>
-              <p>Date : {new Date(order.date).toLocaleDateString()}</p>
+
+            {/* Order info */}
+            <div className="flex flex-col gap-1 text-sm">
+              <p>Items: {order.items.length}</p>
+              <p>Method: {order.paymentMethod}</p>
+              <p>Payment: {order.payment ? 'Done' : 'Pending'}</p>
+              <p>Date: {new Date(order.date).toLocaleDateString()}</p>
             </div>
-            <p className='text-sm sm:text-[15px]'>{currency}{order.amount}</p>
-            <div className='flex flex-col gap-2'>
+
+            {/* Total amount */}
+            <p className="text-sm font-medium">{currency}{order.amount}</p>
+
+            {/* Status select & delete */}
+            <div className="flex flex-col gap-2">
               <select
                 onChange={(event) => statusHandler(event, order._id)}
                 value={order.status}
-                className='p-2 font-semibold'
+                className="p-2 font-semibold border rounded"
               >
                 <option value="Order Placed">Order Placed</option>
                 <option value="Packing">Packing</option>
@@ -106,10 +127,11 @@ const Orders = ({ token }) => {
                 <option value="Out for delivery">Out for delivery</option>
                 <option value="Delivered">Delivered</option>
               </select>
+
               {order.status === "Delivered" && (
                 <button
                   onClick={() => deleteHandler(order._id)}
-                  className='bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600'
+                  className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
                 >
                   Delete
                 </button>

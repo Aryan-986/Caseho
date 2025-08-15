@@ -2,7 +2,7 @@ import React from 'react';
 
 const WavingNepaliFlag = ({ className = "h-9" }) => {
   return (
-    <div className={`${className} relative overflow-hidden`}>
+    <div className={`${className} relative overflow-hidden`} style={{width: 'auto', display: 'inline-block'}}>
       <svg 
         width="60" 
         height="36" 
@@ -131,15 +131,15 @@ const WavingNepaliFlag = ({ className = "h-9" }) => {
         /* Mobile responsiveness */
         @media (max-width: 640px) {
           svg {
-            width: 42px;
-            height: 25px;
+            width: 28px;
+            height: auto;
           }
         }
         
         @media (max-width: 480px) {
           svg {
-            width: 36px;
-            height: 22px;
+            width: 24px;
+            height: auto;
             animation-duration: 2s;
           }
         }

@@ -29,15 +29,19 @@ const Collection = () => {
 
   const applyFilter = () => {
     let productsCopy = products.slice();
-
+  
     if (showSearch && search) {
+      const searchTerm = search.toLowerCase();
+  
       productsCopy = productsCopy.filter(item =>
-        item.name.toLowerCase().includes(search.toLowerCase())
+        item.name.toLowerCase().includes(searchTerm) ||
+        (item.models && item.models.some(model => model.toLowerCase().includes(searchTerm)))
       );
     }
-
+  
     setFilterProducts(productsCopy);
   };
+  
 
   useEffect(() => {
     applyFilter();

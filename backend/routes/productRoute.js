@@ -1,17 +1,11 @@
 import express from 'express';
-import {
-  listProducts,
-  addProduct,
-  removeProduct,
-  singleProduct,
-  updateProduct
-} from '../controllers/productController.js';
+import { listProducts, addProduct, removeProduct, singleProduct, updateProduct, searchProducts } from '../controllers/productController.js';
 import upload from '../middleware/multer.js';
 import adminAuth from '../middleware/adminAuth.js';
 
 const productRouter = express.Router();
 
-// Add a product (admin only, with image uploads)
+// Add product
 productRouter.post(
   '/add',
   adminAuth,
@@ -24,7 +18,7 @@ productRouter.post(
   addProduct
 );
 
-// Update a product (admin only, with image uploads)
+// Update product
 productRouter.post(
   '/update',
   adminAuth,
@@ -37,13 +31,16 @@ productRouter.post(
   updateProduct
 );
 
-// Remove a product (admin only)
+// Remove product
 productRouter.post('/remove', adminAuth, removeProduct);
 
-// Get single product info (public)
+// Single product
 productRouter.post('/single', singleProduct);
 
-// List all products (public)
+// List products
 productRouter.get('/list', listProducts);
+
+// Search products
+productRouter.get('/search', searchProducts);
 
 export default productRouter;

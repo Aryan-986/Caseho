@@ -1,98 +1,121 @@
-import React, { useContext, useState } from 'react';
-import { assets } from '../assets/assets';
-import { Link, NavLink } from 'react-router-dom';
-import { ShopContext } from '../context/ShopContext';
-import WavingNepaliFlag from './WavingNepaliFlag';
+import { useEffect, useRef, useState } from "react";
+import { TiLocationArrow } from "react-icons/ti";
+import { useWindowScroll } from "react-use";
+import gsap from "gsap";
+import { Link, NavLink } from "react-router-dom";
+
+const navItems = ["Collection", "Orders", "About", "Contact"];
 
 const Navbar = () => {
-  const [visible, setVisible] = useState(false);
-  const { setShowSearch, getCartCount, navigate, token, setToken, setCartItems } = useContext(ShopContext);
+  const [isNavVisible, setIsNavVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const [menuOpen, setMenuOpen] = useState(false);
 
-  const logout = () => {
-    navigate('/login');
-    localStorage.removeItem('token');
-    setToken('');
-    setCartItems({});
-  };
+  const navContainerRef = useRef(null);
+  const { y: currentScrollY } = useWindowScroll();
+
+  // Scroll show/hide behavior
+  useEffect(() => {
+    if (currentScrollY < lastScrollY || currentScrollY === 0) {
+      setIsNavVisible(true);
+    } else {
+      setIsNavVisible(false);
+    }
+    setLastScrollY(currentScrollY);
+  }, [currentScrollY]);
+
+  // Animate navbar
+  useEffect(() => {
+    gsap.to(navContainerRef.current, {
+      y: isNavVisible ? 0 : -100,
+      opacity: isNavVisible ? 1 : 0,
+      duration: 0.4,
+      ease: "power2.out",
+    });
+  }, [isNavVisible]);
 
   return (
-    <>
-      <div className='flex items-center justify-between py-5 font-medium relative z-50 bg-white'>
-        {/* Logo + Flag */}
-        <div className='flex items-center gap-3'>
-          <Link to='/'>
-            <img src={assets.logo} className='w-36' alt="Protech Logo" />
+    <header
+      ref={navContainerRef}
+      className="fixed top-0 left-0 w-full z-50 transition-all duration-500"
+    >
+      <nav className="flex items-center justify-between px-6 md:px-12 py-4 bg-white text-black shadow-md">
+
+        {/* Logo */}
+        <div className="flex items-center gap-2">
+          <Link to="/">
+            <h1 className="text-xl font-extrabold tracking-wider text-yellow-500">
+              AXORA
+            </h1>
           </Link>
-          <WavingNepaliFlag className="h-6 sm:h-7" />
         </div>
 
-        {/* Desktop Navigation */}
-        <ul className='hidden sm:flex gap-5 text-sm text-gray-700'>
-          <NavLink to='/' className='flex flex-col items-center gap-1'><p>HOME</p></NavLink>
-          <NavLink to='/collection' className='flex flex-col items-center gap-1'><p>COLLECTION</p></NavLink>
-          <NavLink to='/about' className='flex flex-col items-center gap-1'><p>ABOUT</p></NavLink>
-          <NavLink to='/orders' className='flex flex-col items-center gap-1'><p>ORDERS</p></NavLink>
+        {/* Desktop Nav */}
+        <ul className="hidden md:flex items-center gap-10 text-sm font-semibold uppercase">
+          {navItems.map((item) => (
+            <NavLink
+              key={item}
+              to={`/${item.toLowerCase()}`}
+              className={({ isActive }) =>
+                `hover:text-yellow-500 transition ${
+                  isActive ? "text-yellow-500" : "text-black"
+                }`
+              }
+            >
+              {item}
+            </NavLink>
+          ))}
         </ul>
 
-        {/* Right Section */}
-        <div className='flex items-center gap-6'>
-          {/* Search icon - Always visible */}
-          <img onClick={() => { setShowSearch(true); navigate('/collection') }} src={assets.search_icon} className='w-5 cursor-pointer' alt="" />
+        {/* Right Side */}
+        <div className="flex items-center gap-4">
+          <button className="hidden md:flex items-center gap-1 bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-4 py-2 rounded-full transition">
+            Know More
+            <TiLocationArrow />
+          </button>
 
-          {/* Profile icon - Desktop only */}
-          <div className='group relative hidden sm:block'>
-            <img onClick={() => token ? null : navigate('/login')} className='w-5 cursor-pointer' src={assets.profile_icon} alt="" />
-            {token && (
-              <div className='group-hover:block hidden absolute dropdown-menu right-0 pt-4'>
-                <div className='flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-gray-500 rounded'>
-                  <p className='cursor-pointer hover:text-black'>My Profile</p>
-                  <p onClick={() => navigate('/orders')} className='cursor-pointer hover:text-black'>Orders</p>
-                  <p onClick={logout} className='cursor-pointer hover:text-black'>Logout</p>
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* Cart */}
-          <Link to='/cart' className='relative'>
-            <img src={assets.cart_icon} className='w-5 min-w-5' alt="" />
-            <p className='absolute right-[-5px] bottom-[-5px] w-4 text-center leading-4 bg-black text-white aspect-square rounded-full text-[8px]'>{getCartCount()}</p>
-          </Link>
-
-          {/* Hamburger Menu - Mobile only */}
-          <img onClick={() => setVisible(true)} src={assets.menu_icon} className='w-5 cursor-pointer sm:hidden' alt="" />
+          {/* Mobile Menu Icon */}
+          <button
+            onClick={() => setMenuOpen((prev) => !prev)}
+            className="md:hidden flex flex-col justify-center items-center gap-[3px]"
+          >
+            <span
+              className={`w-6 h-[2px] bg-black transition ${
+                menuOpen ? "rotate-45 translate-y-[6px]" : ""
+              }`}
+            />
+            <span
+              className={`w-6 h-[2px] bg-black transition ${
+                menuOpen ? "opacity-0" : ""
+              }`}
+            />
+            <span
+              className={`w-6 h-[2px] bg-black transition ${
+                menuOpen ? "-rotate-45 -translate-y-[6px]" : ""
+              }`}
+            />
+          </button>
         </div>
+      </nav>
+
+      {/* Mobile Menu */}
+      <div
+        className={`fixed top-0 left-0 h-full w-3/4 max-w-xs bg-white text-black z-40 flex flex-col items-start gap-6 px-6 pt-20 transition-transform duration-500 ${
+          menuOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
+      >
+        {navItems.map((item) => (
+          <NavLink
+            key={item}
+            to={`/${item.toLowerCase()}`}
+            onClick={() => setMenuOpen(false)}
+            className="text-lg uppercase font-medium text-black hover:text-yellow-500 transition"
+          >
+            {item}
+          </NavLink>
+        ))}
       </div>
-
-      {/* Sidebar Menu for Mobile */}
-      <div className={`fixed top-0 left-0 w-full h-full bg-black bg-opacity-70 z-50 transition-transform duration-300 ${visible ? 'translate-x-0' : 'translate-x-full'}`}>
-        <div className='absolute top-0 right-0 w-3/4 max-w-xs h-full bg-white shadow-lg transition-transform duration-300 p-5 flex flex-col'>
-          
-          {/* Close Button */}
-          <div onClick={() => setVisible(false)} className='flex items-center gap-4 cursor-pointer mb-6'>
-            <img className='h-4 rotate-180' src={assets.dropdown_icon} alt="Close" />
-            <p>Close</p>
-          </div>
-
-          {/* Profile icon + user menu (Mobile) */}
-          <div className='flex items-center gap-3 mb-6'>
-            <img onClick={() => token ? null : navigate('/login')} className='w-6 cursor-pointer' src={assets.profile_icon} alt="User" />
-            {token && (
-              <div className='flex flex-col text-gray-600 text-sm'>
-                <p className='cursor-pointer hover:text-black' onClick={() => { navigate('/orders'); setVisible(false); }}>Orders</p>
-                <p className='cursor-pointer hover:text-black' onClick={logout}>Logout</p>
-              </div>
-            )}
-          </div>
-
-          {/* Mobile Menu Links */}
-          <NavLink onClick={() => setVisible(false)} className='py-3 border-b text-gray-600' to='/'>HOME</NavLink>
-          <NavLink onClick={() => setVisible(false)} className='py-3 border-b text-gray-600' to='/collection'>COLLECTION</NavLink>
-          <NavLink onClick={() => setVisible(false)} className='py-3 border-b text-gray-600' to='/about'>ABOUT</NavLink>
-          <NavLink onClick={() => setVisible(false)} className='py-3 border-b text-gray-600' to='/orders'>ORDER</NavLink>
-        </div>
-      </div>
-    </>
+    </header>
   );
 };
 

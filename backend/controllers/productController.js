@@ -77,6 +77,7 @@ export const updateProduct = async (req, res) => {
     // Handle images
     const uploadedImages = await uploadImages(req.files);
     if (uploadedImages.length > 0) {
+      // Keep old images if not replaced
       const oldImages = product.image || [];
       for (let i = 0; i < 4; i++) {
         product.image[i] = uploadedImages[i] || oldImages[i];
@@ -126,7 +127,7 @@ export const singleProduct = async (req, res) => {
   }
 };
 
-// Search products
+// Search products by name or models
 export const searchProducts = async (req, res) => {
   try {
     const { query } = req.query;
@@ -139,18 +140,6 @@ export const searchProducts = async (req, res) => {
       ],
     });
 
-    res.json({ success: true, products });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ success: false, message: error.message });
-  }
-};
-
-// Get product by category
-export const getProductByCategory = async (req, res) => {
-  try {
-    const { category } = req.params;
-    const products = await productModel.find({ category });
     res.json({ success: true, products });
   } catch (error) {
     console.error(error);

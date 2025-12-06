@@ -1,132 +1,43 @@
-import React, { useEffect, useState } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { assets } from "../assets/assets";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom'; // Import Link
+import { assets } from '../assets/assets';
 
-const videos = [
-  assets.herovideo, // your watch cinematic video
-];
-
-const HeroBanner = () => {
-  const [currentVideo, setCurrentVideo] = useState(0);
-  const [isReady, setIsReady] = useState(false);
-
-  const { scrollYProgress } = useScroll();
-  const clipPath = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [
-      "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
-      "polygon(10% 0, 90% 0, 100% 100%, 0 100%)",
-    ]
-  );
-
-  // Preload videos
-  useEffect(() => {
-    let loaded = 0;
-    videos.forEach((src) => {
-      const video = document.createElement("video");
-      video.src = src + "?quality=high&res=1080";
-      video.preload = "auto";
-      video.oncanplaythrough = () => {
-        loaded++;
-        if (loaded === videos.length) setIsReady(true);
-      };
-    });
-  }, []);
-
-  if (!isReady)
-    return (
-      <div className="flex items-center justify-center h-screen bg-black text-white text-xl">
-        Loading...
-      </div>
-    );
-
+const Hero = () => {
   return (
-    <motion.section
-      className="relative w-full h-screen overflow-hidden"
-      style={{ clipPath }}
-    >
-      {/* Background Video */}
-      <div className="absolute inset-0">
-        {videos.map((src, index) => (
-          <video
-            key={index}
-            src={src}
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="auto"
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-[1400ms] ${
-              index === currentVideo ? "opacity-100" : "opacity-0"
-            }`}
-            style={{
-              filter:
-                "contrast(125%) brightness(90%) saturate(120%) blur(0px)",
-            }}
-          />
-        ))}
+    <div className='relative flex flex-col sm:flex-row items-center overflow-hidden'>
+      {/* Hero Left Side */}
+      <div className='w-full sm:w-1/2 flex items-center justify-center py-10 sm:py-20 px-5'>
+        <div className='text-[#414141] text-center sm:text-left'>
+          <div className='flex items-center gap-2 justify-center sm:justify-start'>
+            <p className='w-8 md:w-11 h-[2px] bg-[#414141]'></p>
+            <p className='font-medium text-sm md:text-base'>Upgrade Your iPhone Look</p>
+          </div>
+          <h1 className='prata-regular text-3xl sm:py-3 lg:text-5xl leading-relaxed px-3'>
+            The Ultimate Protection with Unmatched Style
+          </h1>
+          <h1 className='prata-regular text-1xl sm:py-1 lg:text-3xl leading-relaxed px-4'>
+            Premium iPhone Cases in Nepal
+          </h1>
+          <p className='text-gray-600 mt-4 text-sm md:text-base px-3'>
+            Explore our exclusive collection of iPhone cases, meticulously designed to offer robust protection and elevate your style.
+            Find the perfect blend of aesthetics and durability for your device.
+          </p>
+          <div className='flex items-center gap-2 my-5 justify-center sm:justify-start'>
+            <Link to="/collection" className='bg-black hover:bg-gray-700 text-white font-bold py-2 px-4 rounded'>
+              Shop Now
+            </Link>
+            <p className='w-8 md:w-11 h-[1px] bg-[#414141]'></p>
+          </div>
+        </div>
       </div>
 
-      {/* Dark gradient for luxury feel */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/60 to-transparent z-10" />
-
-      {/* TEXT CONTENT */}
-      <div className="relative z-20 flex flex-col justify-center h-full px-8 sm:px-16 lg:px-24 max-w-4xl">
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-          className="text-white font-extrabold text-4xl sm:text-6xl md:text-7xl tracking-wide leading-tight drop-shadow-[0_4px_10px_rgba(0,0,0,0.9)]"
-        >
-          TIME ELEVATED
-        </motion.h1>
-
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.3 }}
-          className="text-gray-300 mt-4 text-lg sm:text-xl tracking-wide max-w-2xl"
-        >
-          Precision-engineered luxury watches crafted for those who value time,
-          craftsmanship, and timeless elegance.
-        </motion.p>
-
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.6 }}
-          className="text-gray-400 mt-2 italic text-sm sm:text-base"
-        >
-          Every second tells a story.
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.9 }}
-          className="mt-10"
-        >
-          <Link to="/collection">
-            <button className="bg-white text-black px-10 py-3 rounded-full text-lg font-semibold hover:bg-gray-200 transition-transform hover:scale-[1.05]">
-              Explore Collection
-            </button>
-          </Link>
-        </motion.div>
+      {/* Hero Right Side (Multi-Image Layout) */}
+      <div className='w-full sm:w-1/2 grid grid-cols-2 gap-2 p-2'>
+        <img className='w-full h-auto object-cover rounded-lg shadow-md' src={assets.layout1} alt='iPhone Case 1' />
+        <img className='w-full h-auto object-cover rounded-lg shadow-md' src={assets.layout3} alt='iPhone Case 2' />
       </div>
-
-      {/* Branding Tag */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1.3, delay: 1 }}
-        className="absolute bottom-6 right-8 z-20 text-gray-400 text-xs sm:text-sm uppercase tracking-wider"
-      >
-        <span className="text-white font-bold">Young Devster</span> • Since 2025
-      </motion.div>
-    </motion.section>
+    </div>
   );
 };
 
-export default HeroBanner;
+export default Hero;

@@ -59,7 +59,7 @@ const Collection = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
-    <div className="flex flex-col pt-32 border-t">
+    <div className="flex flex-col pt-10 border-t">
       {/* Header */}
       <div className='text-center py-7'>
         <Title text1={'All'} text2={'COLLECTIONS'} />

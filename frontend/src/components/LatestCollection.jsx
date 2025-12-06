@@ -3,61 +3,35 @@ import { ShopContext } from '../context/ShopContext';
 import Title from './Title';
 import ProductItem from './ProductItem';
 import { Link } from 'react-router-dom';
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 
 const LatestCollection = () => {
   const { products } = useContext(ShopContext);
-  const MAX_PRODUCTS = 8;
   const [latestProducts, setLatestProducts] = useState([]);
   const [sortOrder, setSortOrder] = useState("default");
-  const [slidesToShow, setSlidesToShow] = useState(null); // null until width known
 
-  // Set slides based on window width
   useEffect(() => {
-    const updateSlides = () => {
-      const width = window.innerWidth;
-      if (width < 768) setSlidesToShow(2);       // Mobile
-      else if (width < 1024) setSlidesToShow(3); // Tablet
-      else setSlidesToShow(4);                   // Desktop
-    };
+    let sortedProducts = [...products.slice(0, 10)];
 
-    updateSlides(); // initial check
-    window.addEventListener("resize", updateSlides);
+    if (sortOrder === "lowToHigh") {
+      sortedProducts.sort((a, b) => a.price - b.price);
+    } else if (sortOrder === "highToLow") {
+      sortedProducts.sort((a, b) => b.price - a.price);
+    }
 
-    return () => window.removeEventListener("resize", updateSlides);
-  }, []);
-
-  // Sort products
-  useEffect(() => {
-    let sorted = [...products.slice(0, MAX_PRODUCTS)];
-    if (sortOrder === "lowToHigh") sorted.sort((a, b) => a.price - b.price);
-    else if (sortOrder === "highToLow") sorted.sort((a, b) => b.price - a.price);
-    setLatestProducts(sorted);
+    setLatestProducts(sortedProducts);
   }, [products, sortOrder]);
 
-  // Wait until slidesToShow is calculated
-  if (slidesToShow === null) return null;
-
-  const settings = {
-    dots: true,
-    infinite: false,
-    speed: 500,
-    slidesToShow: slidesToShow,
-    slidesToScroll: 1,
-    arrows: false,
-  };
-
   return (
-    <div className='container mx-auto py-12 px-4 sm:px-6 lg:px-8'>
-      <div className='text-center mb-10'>
+    <div className='my-2'>
+      {/* Heading */}
+      <div className='text-center py-7'>
         <Title text1={'NEW'} text2={'ARRIVALS'} />
       </div>
 
-      <div className="flex justify-end mb-8">
+      {/* Sort Dropdown */}
+      <div className="flex justify-end mb-7 px-2 sm:px-0">
         <select
-          className="border border-gray-300 bg-white text-sm py-2 px-4 rounded shadow-sm focus:outline-none focus:ring-1 focus:ring-black transition duration-150 ease-in-out cursor-pointer"
+          className="border border-gray-300 text-sm p-2 rounded w-auto focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
           value={sortOrder}
           onChange={(e) => setSortOrder(e.target.value)}
         >
@@ -67,28 +41,27 @@ const LatestCollection = () => {
         </select>
       </div>
 
-      <div className='mx-[-12px] sm:mx-[-20px]'>
-        <Slider {...settings}>
-          {latestProducts.map(item => (
-            <div key={item._id} className='p-3 sm:p-4'>
-              <ProductItem
-                id={item._id}
-                image={item.image}
-                name={item.name}
-                price={item.price}
-                oldPrice={item.oldPrice}
-              />
-            </div>
-          ))}
-        </Slider>
+      {/* Products Grid */}
+      <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 gap-y-6'>
+        {latestProducts.map((item, index) => (
+          <ProductItem
+            key={index}
+            id={item._id}
+            image={item.image}
+            name={item.name}
+            price={item.price}
+            oldPrice={item.oldPrice}
+          />
+        ))}
       </div>
 
-      <div className="text-center mt-16">
+      {/* Show More Button */}
+      <div className="text-center mt-8">
         <Link
           to="/collection"
-          className="inline-block px-8 py-3 border-2 border-black text-black font-semibold uppercase tracking-wider hover:bg-black hover:text-white transition duration-300 ease-in-out shadow-md"
+          className="inline-block px-2 py-1 border border-black text-black font-semibold rounded hover:bg-gray-700 hover:text-white transition"
         >
-          View All Products
+          Show More
         </Link>
       </div>
     </div>

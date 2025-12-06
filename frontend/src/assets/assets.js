@@ -17,7 +17,7 @@ import razorpay_logo from './razorpay_logo.png'
 import stripe_logo from './stripe_logo.png'
 import cross_icon from './cross_icon.png'
 import layout1 from './layout1.jpg'
-import layout2 from './layout2.png'
+import layout2 from './layout2.jpg'
 import layout3 from './layout3.jpg'
 import layout4 from './layout4.jpg'
 import layout5 from './layout5.jpg'
@@ -41,16 +41,8 @@ import hero_img1 from './banner1.jpg';
 import hero_img2 from './banner2.jpg';
 import hero_img3 from './banner3.jpg';
 import aboutimg from './aboutimage.jpg';
-import hero1 from './charles olivera.png';
-import hero2 from './Leo messi.png';
-import hero3 from './dustin porier.png'
-import herovideo from './herovideo.mp4';
 
 export const assets = {
-    hero1,
-    herovideo,
-    hero2,
-    hero3,
     layout1,
     layout2,
     layout3,

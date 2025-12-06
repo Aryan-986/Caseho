@@ -40,7 +40,8 @@ const Orders = () => {
   },[token])
 
   return (
-    <div className="pt-32 pb-40 container mx-auto px-7">
+    <div className='border-t pt-16'>
+
         <div className='text-2xl'>
             <Title text1={'MY'} text2={'ORDERS'}/>
         </div>
